@@ -1,6 +1,7 @@
 $(document).ready(function() {
   
   var colorClass = '';
+  var blinkInterval;
   
   $('.select-color').click(function() { 
     var selectedColor = $(this).attr('class'); 
@@ -19,20 +20,24 @@ $(document).ready(function() {
     
     $(this).removeClass('not-selected');
     $(this).siblings().addClass('not-selected');   
-  });
+  })
   
   $('.box').click(function() {
     $(this).toggleClass(colorClass);
-  });
+  })
   
   $('.toggle-blink').click(function() {
     if (colorClass) {
-      $('.toggle-blink').toggleClass('opacity');
-      setInterval(function() {
+      $(this).toggleClass('opacity');
+    }
+    if ($(this).hasClass('opacity')) {
+      blinkInterval = setInterval(function() {
         $('.box.cyan, .box.yellow, .box.magenta').toggleClass('blink');
       }, 350);
+    } else {
+      clearInterval(blinkInterval);
     }
-  });
+  })
 
-});
+})
 
